@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Student API Fetch</title>
+</head>
+<body>
+  <h2>Student List (from Flask HTTPS API)</h2>
+  <ul id="students"></ul>
+
+  <script>
+    fetch("https://192.168.40.128/students/all")
+      .then(response => response.json())
+      .then(data => {
+        const ul = document.getElementById("students");
+        data.forEach(student => {
+          const li = document.createElement("li");
+          li.textContent = `${student.first_name} ${student.last_name}`;
+          ul.appendChild(li);
+        });
+      })
+      .catch(error => {
+        console.error("Fetch error:", error);
+        document.body.innerHTML += "<p style='color:red;'>Unable to reach API</p>";
+      });
+  </script>
+</body>
+</html>
